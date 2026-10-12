@@ -1,0 +1,82 @@
+# Copy this file to config.yaml and fill it in. config.yaml stays on your PC only.
+
+base_url: https://pk-gr-services.gvcworld.eu
+chrome_path: "C:/Program Files/Google/Chrome/Application/chrome.exe"
+profiles_dir: profiles        # one Chrome profile folder per person is created here
+logs_dir: logs                # logs and screenshots
+
+appointment:
+  vac_id: 137                 # Islamabad Visa Application Center for Greece
+  type_id: 26                 # Long-Term Type D (Seasonal/Dependent Employment)
+  method: 1
+  travel_purpose: -1          # what the site sends when "Travel Purpose" is empty
+
+target:
+  month: "2026-11"            # month to book in, YYYY-MM
+  skip_weekdays: []           # 0=Mon .. 6=Sun. Fill in once we know which days the VAC never opens.
+
+timing:
+  request_gap_s: 2.0          # pause between two slot searches (only one window scans)
+  sweep_pause_s: 5.0          # pause between full sweeps during the release rush
+  closed_check_every_s: 180   # while the month is not open yet: probe 2 dates this often
+  monitor_sweep_every_s: 300  # cancellation watch after the rush: one full sweep this often
+  keepalive_every_s: 600      # touch every session this often while idle (0 = off)
+  otp_timeout_s: 150
+  captcha_timeout_s: 240
+  book_timeout_s: 90
+
+relay:
+  server: https://ntfy.sh
+  # Make both topics long random strings, e.g. from: python -c "import secrets;print(secrets.token_urlsafe(24))"
+  otp_topic: "CHANGE-ME-otp-topic"        # phones post SMS here
+  notify_topic: "CHANGE-ME-alert-topic"   # subscribe to this one in the ntfy app on your phone
+  otp_regex: "\\b(\\d{4,8})\\b"           # adjust once we see a real GVCW OTP SMS
+
+persons:
+  - key: P1                   # must match the prefix set in that person's SMS forwarder
+    port: 9301                # unique per person
+    account_email: "person1@example.com"
+    phone: "3001234567"       # 10 digits, no 0 and no +92
+    surname: "SURNAME"
+    firstname: "FIRSTNAME"
+    dob: "31/12/1990"         # DD/MM/YYYY exactly as on passport
+    passport: "AB1234567"
+    passport_expiry: "31/12/2030"
+    gender: MALE              # MALE / FEMALE / OTHER
+    nationality_id: 197       # PAKISTAN
+
+  - key: P2
+    port: 9302
+    account_email: "person2@example.com"
+    phone: "3001234568"
+    surname: "SURNAME"
+    firstname: "FIRSTNAME"
+    dob: "31/12/1990"
+    passport: "AB1234568"
+    passport_expiry: "31/12/2030"
+    gender: MALE
+    nationality_id: 197
+
+  - key: P3
+    port: 9303
+    account_email: "person3@example.com"
+    phone: "3001234569"
+    surname: "SURNAME"
+    firstname: "FIRSTNAME"
+    dob: "31/12/1990"
+    passport: "AB1234569"
+    passport_expiry: "31/12/2030"
+    gender: MALE
+    nationality_id: 197
+
+  - key: P4
+    port: 9304
+    account_email: "person4@example.com"
+    phone: "3001234570"
+    surname: "SURNAME"
+    firstname: "FIRSTNAME"
+    dob: "31/12/1990"
+    passport: "AB1234570"
+    passport_expiry: "31/12/2030"
+    gender: MALE
+    nationality_id: 197
